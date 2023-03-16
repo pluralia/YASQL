@@ -1,0 +1,16 @@
+{
+    "projectName": "Yasql",
+    "languages": [{
+        "id": "yasql",
+        "grammar": "src/language/yasql.langium",
+        "fileExtensions": [".yasql"],
+        "caseInsensitive": true,
+        "textMate": {
+            "out": "syntaxes/yasql.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "syntaxes/yasql.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}

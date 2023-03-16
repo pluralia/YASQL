@@ -1,0 +1,62 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build YASQL",
+            "command": "npm run langium:generate && npm run build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Langium: Generate grammar and build the YASQL language",
+            "icon": {
+                "color": "terminal.ansiGreen",
+                "id": "server-process"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+
+        },
+        {
+            "label": "Start YASQL Server",
+            "type": "shell",
+            "isBackground": true,
+            "command": "npm run build:web && npm run serve",
+            "presentation": { "reveal": "silent" },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [{
+              "pattern": [{
+                "regexp": ".",
+                "file": 1,"line": 1,
+                "column": 1,"message": 1
+              }],
+              "background": {
+                  "activeOnStart": true,
+                  "beginsPattern": { "regexp": "." },
+                  "endsPattern": { "regexp": "." }
+              },
+            }]
+        },
+        {
+            "label": "Stop YASQL Server",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+
+        },
+    ],
+    "inputs": [{
+        "id": "terminate",
+        "type": "command",
+        "command": "workbench.action.tasks.terminate",
+        "args": "terminateAll"
+    }]
+}

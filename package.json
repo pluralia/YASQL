@@ -1,0 +1,79 @@
+{
+    "name": "YASQL",
+    "displayName": "YASQL",
+    "description": "Please enter a brief description here",
+    "version": "0.0.1",
+    "categories": [
+        "Programming Languages"
+    ],
+    "files": [
+        "bin"
+    ],
+    "scripts": {
+        "build": "tsc -b tsconfig.json",
+        "watch": "tsc -b tsconfig.json --watch",
+        "lint": "eslint src --ext ts",
+        "test": "vitest",
+        "langium:generate": "langium generate",
+        "langium:watch": "langium generate --watch",
+        "vscode:prepublish": "npm run build && npm run lint",
+        "build:worker": "esbuild --minify --sourcemap ./out/language/main-browser.js --bundle --format=iife --outfile=./public/yasql-server-worker.js",
+        "prepare:public": "npx shx mkdir -p ./public && npx shx cp -fr ./src/static/* ./public/",
+        "copy:monaco-editor-wrapper": "npx shx cp -fr ./node_modules/monaco-editor-wrapper/bundle ./public/monaco-editor-wrapper",
+        "copy:monaco-workers": "npx shx cp -fr ./node_modules/monaco-editor-workers/dist/ ./public/monaco-editor-workers",
+        "copy:monarch-syntax": "npx shx cp -fr ./out/syntaxes/ ./public/syntaxes",
+        "build:web": "npm run build && npm run build:monarch && npm run prepare:public && npm run build:worker && npm run copy:monaco-editor-wrapper && npm run copy:monaco-workers && npm run copy:monarch-syntax",
+        "build:monarch": "tsc -b tsconfig.monarch.json",
+        "serve": "node ./out/web/app.js"
+    },
+    "dependencies": {
+        "langium": "~1.1.0",
+        "vscode-languageclient": "~8.0.2",
+        "chalk": "~4.1.2",
+        "commander": "~10.0.0",
+        "express": "~4.18.2",
+        "monaco-editor-workers": "~0.34.2",
+        "monaco-editor-wrapper": "~1.6.0"
+    },
+    "devDependencies": {
+        "@types/node": "~16.18.11",
+        "@typescript-eslint/eslint-plugin": "~5.51.0",
+        "@typescript-eslint/parser": "~5.51.0",
+        "eslint": "~8.33.0",
+        "langium-cli": "~1.1.0",
+        "vitest": "~0.28.4",
+        "typescript": "~4.9.5",
+        "@types/vscode": "~1.67.0",
+        "@types/express": "^4.17.17"
+    },
+    "engines": {
+        "vscode": "^1.67.0"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "yasql",
+                "aliases": [
+                    "YASQL",
+                    "yasql"
+                ],
+                "extensions": [".yasql"],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yasql",
+                "scopeName": "source.yasql",
+                "path": "./syntaxes/yasql.tmLanguage.json"
+            }
+        ]
+    },
+    "activationEvents": [
+        "onLanguage:yasql"
+    ],
+    "main": "./out/extension/main.js",
+    "bin": {
+        "yasql-cli": "./bin/cli"
+    }
+}
