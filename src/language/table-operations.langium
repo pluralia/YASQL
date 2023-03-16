@@ -1,13 +1,14 @@
 import './terminals'
+import './yasql'
 
-ColumnInit: name=ID value=(ID | NUMBER);
+ColumnInit: column=[ColumnDecl:ID] value=(ID | NUMBER);
 
 Insert:
-    'INSERT' 'INTO' table=ID '('
+    'INSERT' 'INTO' table=[Table:ID] '('
         (columns+=ColumnInit (',' columns+=ColumnInit)*)?
     ')' ';'
 ;
 
 Select:
-    'FROM' table=ID 'SELECT' column=ID ';'
+    'FROM' table=[Table:ID] 'SELECT' column=[ColumnDecl:ID] ';'
 ;

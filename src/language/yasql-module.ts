@@ -3,6 +3,7 @@ import {
     LangiumServices, LangiumSharedServices, Module, PartialLangiumServices
 } from 'langium';
 import { YASQLGeneratedModule, YasqlGeneratedSharedModule } from './generated/module';
+import { YasqlScopeProvider } from './yasql-scope-provider';
 import { YasqlValidator, registerValidationChecks } from './yasql-validator';
 
 /**
@@ -11,7 +12,7 @@ import { YasqlValidator, registerValidationChecks } from './yasql-validator';
 export type YasqlAddedServices = {
     validation: {
         YasqlValidator: YasqlValidator
-    }
+    },
 }
 
 /**
@@ -26,6 +27,9 @@ export type YasqlServices = LangiumServices & YasqlAddedServices
  * selected services, while the custom services must be fully specified.
  */
 export const YasqlModule: Module<YasqlServices, PartialLangiumServices & YasqlAddedServices> = {
+    references: {
+        ScopeProvider: (services) => new YasqlScopeProvider(services),
+    },
     validation: {
         YasqlValidator: () => new YasqlValidator()
     }
