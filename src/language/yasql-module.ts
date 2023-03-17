@@ -4,6 +4,7 @@ import {
 } from 'langium';
 import { YASQLGeneratedModule, YasqlGeneratedSharedModule } from './generated/module';
 import { YasqlScopeProvider } from './yasql-scope-provider';
+import { YasqlSemanticTokenProvider } from './yasql-semantic-tokens';
 import { YasqlValidator, registerValidationChecks } from './yasql-validator';
 
 /**
@@ -32,6 +33,9 @@ export const YasqlModule: Module<YasqlServices, PartialLangiumServices & YasqlAd
     },
     validation: {
         YasqlValidator: () => new YasqlValidator()
+    },
+    lsp: {
+        SemanticTokenProvider: (services) => new YasqlSemanticTokenProvider(services),
     }
 };
 
