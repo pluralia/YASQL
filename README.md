@@ -36,3 +36,8 @@ npm run build
 ## Start web-app
 * Press the button `Deb Chrome Debugging`
 <img width="1512" alt="Screenshot 2023-03-17 at 15 34 59" src="https://user-images.githubusercontent.com/15619772/225935507-1d82068d-d222-4514-9fb4-a32dffcf39f1.png">
+
+## Run CLI (on the example above)
+```
+./bin/cli generate examples/lang_table.yasql
+```
