@@ -1,0 +1,12 @@
+CREATE TABLE Languages (
+    Year INT,
+    Name VARCHAR(255)
+);
+
+INSERT INTO Languages (year, name)
+VALUES (2012, 'TypeScript');
+
+INSERT INTO Languages (year, name)
+VALUES (1995, 'Java');
+
+SELECT name FROM Languages;
